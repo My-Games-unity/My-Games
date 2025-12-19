@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 5287306727749679870}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 1.34852, y: 0.39215, z: 0}
   m_LocalScale: {x: 1.3, y: 1.3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -47,6 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c167b1f343ef9344a8988d0dbb94f0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Ball
+  BallTapSFX: {fileID: 0}
 --- !u!212 &7649415734850183716
 SpriteRenderer:
   serializedVersion: 2

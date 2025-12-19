@@ -2,42 +2,19 @@
 
 public class Ball : MonoBehaviour
 {
-    Vector3 touchWorldPos;
-    Vector2 touchPos2D;
+   
     GameManager gameManager;
     DifficultyManager difficultyManager;
+    private int Score;
+   AudioSource BallTapSFX;
 
-    private void Start()
+    private void Awake()
     {
         gameManager = FindAnyObjectByType<GameManager>();
         difficultyManager = FindAnyObjectByType<DifficultyManager>();
+        BallTapSFX = GameObject.FindGameObjectWithTag("Ball Tap SFX").GetComponent<AudioSource>();
+
     }
-
-
-    /* void Update()
-     {
-
-         if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
-         {
-             touchWorldPos = Camera.main.ScreenToWorldPoint(Input.GetTouch(0).position);
-             touchPos2D = new Vector2(touchWorldPos.x, touchWorldPos.y);
-
-             Collider2D hit = Physics2D.OverlapPoint(touchPos2D, LayerMask.GetMask("Ball"));
-             if (hit != null && hit.transform == transform)
-             {
-
-                 Destroytheball();
-
-             }
-
-             else 
-             {
-                 Debug.Log("GPA touched");
-
-             }
-
-         }
-     }*/
 
     private void OnMouseDown()
     {
@@ -49,12 +26,49 @@ public class Ball : MonoBehaviour
         
         Destroy(gameObject);
         gameManager.ScoreSystem();
-        difficultyManager.LevelOne();
+        LevelSelect();
+
+    }
+
+    private void LevelSelect()
+    {
+        Score = PlayerPrefs.GetInt("Score",0);
+        if (Score <= 10)
+        {
+            difficultyManager.LevelOne();
+        }
+
+        if (Score > 10 && Score <= 20) 
+        { 
+         
+            difficultyManager.LevelTwo();
+        
+        }
+
+        if (Score > 20 && Score <= 35)
+        {
+
+            difficultyManager.LevelThree();
+
+        }
+
+        if (Score > 35 && Score <= 70)
+        {
+
+            difficultyManager.LevelFour();
+
+        }
+
 
 
     }
 
-   
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        BallTapSFX.Play();
+    }
+
+
 
 
 

@@ -6,24 +6,28 @@ public class Ball : MonoBehaviour
     GameManager gameManager;
     DifficultyManager difficultyManager;
     private int Score;
-   AudioSource BallTapSFX;
+    AudioSource BallTapSFX;
+    [HideInInspector] 
+    public Vector2 BallLastPos;
+    
 
-    private void Awake()
+    private void Start()
     {
         gameManager = FindAnyObjectByType<GameManager>();
         difficultyManager = FindAnyObjectByType<DifficultyManager>();
-        BallTapSFX = GameObject.FindGameObjectWithTag("Ball Tap SFX").GetComponent<AudioSource>();
+        BallTapSFX = GameObject.Find("Ball Tap SFX").GetComponent<AudioSource>();
 
     }
 
     private void OnMouseDown()
     {
+        BallLastPos = gameObject.transform.position;
         Destroytheball();
     }
 
     public void Destroytheball() // Destroy ball 
     {
-        
+       
         Destroy(gameObject);
         gameManager.ScoreSystem();
         LevelSelect();
@@ -59,6 +63,12 @@ public class Ball : MonoBehaviour
 
         }
 
+        if (Score > 70 && Score <= 100)
+        {
+            
+            difficultyManager.TwoSmallBallSpawn(3, BallLastPos);
+
+        }
 
 
     }

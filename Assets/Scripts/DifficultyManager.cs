@@ -11,6 +11,26 @@ public class DifficultyManager : MonoBehaviour
     float CurrectScaleOfBall = 1.3f;
     public GameObject[] SmallBalls;
     public int aliveSmallBalls = 0;
+    public GameObject _BombPreFab;
+
+    public void BombBallSpawn()
+    {
+        GameObject Bomb = Instantiate(_BombPreFab, new Vector2(UnityEngine.Random.Range(-1.3f, 1.3f), UnityEngine.Random.Range(0f, 3f)), Quaternion.identity);
+        Rigidbody2D BombRB = Bomb.GetComponent<Rigidbody2D>();
+        int randomnumber = UnityEngine.Random.Range(-2, 1);
+
+        //Debug.Log(randomnumber);
+        if (randomnumber <= 0)
+        {
+            BombRB.AddForce(new Vector2(-BallForce, 0), ForceMode2D.Impulse);
+        }
+        else if (randomnumber > 0)
+        {
+            BombRB.AddForce(new Vector2(BallForce, 0), ForceMode2D.Impulse);
+
+        }
+
+    }
 
     public void LevelOne()
     {

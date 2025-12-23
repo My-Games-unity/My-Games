@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     int score = 0;
     public UIManager UIManager;
     public DifficultyManager difficultyManager;
+    int Health = 5;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Awake()
@@ -36,6 +37,15 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.SetInt("Score", score);
         PlayerPrefs.Save();
         UIManager.AddScore(score);
+
+    }
+
+    public void HealthSystem()
+    {
+        if (Health <= 0) return;
+        Health--;
+        UIManager.RemoveLife(Health);
+
 
     }
 }

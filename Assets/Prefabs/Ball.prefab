@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 7008402353508672939}
   m_Layer: 0
   m_Name: Ball
-  m_TagString: Untagged
+  m_TagString: Ball
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -131,7 +131,7 @@ CircleCollider2D:
   m_Enabled: 1
   serializedVersion: 3
   m_Density: 1
-  m_Material: {fileID: 6200000, guid: 5b82dd499bdce904e91ec275f0cc5087, type: 2}
+  m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0

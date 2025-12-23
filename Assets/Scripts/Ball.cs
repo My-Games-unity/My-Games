@@ -21,45 +21,70 @@ public class Ball : MonoBehaviour
 
     private void OnMouseDown()
     {
-        BallLastPos = gameObject.transform.position;
-        Destroytheball();
+       
+            BallLastPos = gameObject.transform.position;
+            Destroytheball();
+       
     }
 
     public void Destroytheball() // Destroy ball 
     {
        
-        Destroy(gameObject);
         gameManager.ScoreSystem();
         LevelSelect();
+        Destroy(gameObject);
 
     }
 
     private void LevelSelect()
     {
+        int BallSpawnChance = Random.Range(10, 100);
+
         Score = PlayerPrefs.GetInt("Score",0);
         if (Score <= 10)
         {
+           
             difficultyManager.LevelOne();
         }
 
         if (Score > 10 && Score <= 20) 
-        { 
-         
-            difficultyManager.LevelTwo();
+        {
+            if (BallSpawnChance < 30)
+            {
+                difficultyManager.BombBallSpawn();
+            }
+            else
+            {
+                difficultyManager.LevelTwo();
+            } 
         
         }
 
         if (Score > 20 && Score <= 35)
         {
 
-            difficultyManager.LevelThree();
+            if (BallSpawnChance < 30)
+            {
+                difficultyManager.BombBallSpawn();
+            }
+            else
+            {
+                difficultyManager.LevelThree();
+            }
 
         }
 
         if (Score > 35 && Score <= 70)
         {
 
-            difficultyManager.LevelFour();
+            if (BallSpawnChance < 30)
+            {
+                difficultyManager.BombBallSpawn();
+            }
+            else
+            {
+                difficultyManager.LevelFour();
+            }
 
         }
 
@@ -75,7 +100,11 @@ public class Ball : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        BallTapSFX.Play();
+        if(BallTapSFX != null)
+        {
+            BallTapSFX.Play();
+        }
+       
     }
 
 

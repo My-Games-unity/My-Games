@@ -127,7 +127,7 @@ public class DifficultyManager : MonoBehaviour
     
     public void LevelThree() //Ball Speed increase
     {
-        CurrectScaleOfBall = CurrectScaleOfBall - 0.03f;
+        CurrectScaleOfBall = CurrectScaleOfBall - 0.02f;
         CurrectScaleOfBall = Mathf.Max(CurrectScaleOfBall, 1f);
         BallForce += 0.3f;
         BallForce = Mathf.Clamp(BallForce, 10f, 18f);
@@ -160,10 +160,16 @@ public class DifficultyManager : MonoBehaviour
 
     public void LevelFour()
     {
-            BallForce += 0.3f;
-            BallForce = Mathf.Clamp(BallForce, 10f, 18f);
-            CurrectScaleOfBall = CurrectScaleOfBall - 0.03f;
-            CurrectScaleOfBall = Mathf.Max(CurrectScaleOfBall, 0.7f);
+            int Score = gameManager.score;
+             if (Score > 140) 
+             {
+              BallForce += 0.4f;
+              BallForce = Mathf.Clamp(BallForce, 10f, 30f);
+
+             }
+            
+            CurrectScaleOfBall = CurrectScaleOfBall - 0.02f;
+            CurrectScaleOfBall = Mathf.Max(CurrectScaleOfBall, 0.8f);
             SpawnedBall = gameManager.SpawnBall();
             SpawnedBall.transform.localScale = Vector3.one * CurrectScaleOfBall;
             Ballrb = SpawnedBall.GetComponent<Rigidbody2D>();

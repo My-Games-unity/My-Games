@@ -51,7 +51,7 @@ public class GameManager : MonoBehaviour
             UIManager.AddScore(score);
         }
 
-        else if(score >101 &&  score < 200)
+        else if(score >101 &&  score < 300)
         {
             score += 1 + BonusScore;
 
@@ -66,6 +66,7 @@ public class GameManager : MonoBehaviour
     public void DoubleScore() 
     {
         StartCoroutine(DoubpleScoreManager(ScoreMultiplyerDelay));
+
     }
 
     IEnumerator DoubpleScoreManager(int ScoreMultiplyerDelay)
@@ -95,13 +96,19 @@ public class GameManager : MonoBehaviour
 
     public void CoinReward()
     {
+
         int coinCount = 1;
 
-        if (score > 101 && score < 200)
+        if (isBonusScoreActive) 
+        {
+            coinCount = 2;
+        }
+
+        if (score > 101 && score < 400)
             coinCount = 2;
 
         StartCoroutine(SpawnCoinsOneByOne(coinCount));
-        ScoreSystem();
+        
     }
 
     IEnumerator SpawnCoinsOneByOne(int count)
@@ -158,6 +165,7 @@ public class GameManager : MonoBehaviour
         }
 
         CoinCollectSFX.Play();
+        ScoreSystem();
         Destroy(coin);
     }
 

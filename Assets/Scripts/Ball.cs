@@ -9,7 +9,7 @@ public class Ball : MonoBehaviour
     AudioSource BallTapSFX;
     [HideInInspector]
     public Vector2 BallLastPos;
-    int TwoXBallSpawnDelay = 70;
+    int TwoXBallSpawnDelay = 50;
 
 
     private void Start()
@@ -42,7 +42,7 @@ public class Ball : MonoBehaviour
 
         
         LevelSelect();
-        TwoXBallSpqwn();
+        TwoXBallSpawn();
         gameManager.CoinReward();
         Destroy(gameObject);
 
@@ -86,7 +86,7 @@ public class Ball : MonoBehaviour
             difficultyManager.HeartBall();
         }
 
-        if (Score > 101 && Score <= 200)
+        if (Score > 102 && Score <= 400)
         {
             if (BallSpawnChance < 35 && Score >= 50 && !difficultyManager.isBombSpawned)
             {
@@ -107,7 +107,7 @@ public class Ball : MonoBehaviour
 
     }
 
-    private void TwoXBallSpqwn()
+    private void TwoXBallSpawn()
     {
         if (Score.Equals(TwoXBallSpawnDelay))
         {

@@ -56,7 +56,7 @@ public class Bomb : MonoBehaviour
 
         }
 
-        if (Score > 100 && Score <= 200)
+        if (Score > 100 && Score <= 400)
         {
             difficultyManager.LevelFour();
 

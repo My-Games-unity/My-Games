@@ -2,59 +2,123 @@
 
 public class Ball : MonoBehaviour
 {
-    Vector3 touchWorldPos;
-    Vector2 touchPos2D;
+
     GameManager gameManager;
     DifficultyManager difficultyManager;
+    private int Score;
+    AudioSource BallTapSFX;
+    [HideInInspector]
+    public Vector2 BallLastPos;
+    int TwoXBallSpawnDelay = 50;
+
 
     private void Start()
     {
         gameManager = FindAnyObjectByType<GameManager>();
         difficultyManager = FindAnyObjectByType<DifficultyManager>();
+        BallTapSFX = GameObject.Find("Ball Tap SFX").GetComponent<AudioSource>();
+        Score = gameManager.score;
+
     }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (BallTapSFX != null)
+        {
+            BallTapSFX.Play();
+        }
 
-    /* void Update()
-     {
-
-         if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
-         {
-             touchWorldPos = Camera.main.ScreenToWorldPoint(Input.GetTouch(0).position);
-             touchPos2D = new Vector2(touchWorldPos.x, touchWorldPos.y);
-
-             Collider2D hit = Physics2D.OverlapPoint(touchPos2D, LayerMask.GetMask("Ball"));
-             if (hit != null && hit.transform == transform)
-             {
-
-                 Destroytheball();
-
-             }
-
-             else 
-             {
-                 Debug.Log("GPA touched");
-
-             }
-
-         }
-     }*/
+    }
 
     private void OnMouseDown()
     {
+        BallLastPos = gameObject.transform.position;
+
         Destroytheball();
     }
 
     public void Destroytheball() // Destroy ball 
     {
+
         
+        LevelSelect();
+        TwoXBallSpawn();
+        gameManager.CoinReward();
         Destroy(gameObject);
-        gameManager.ScoreSystem();
-        difficultyManager.LevelOne();
+
+    }
+
+    private void LevelSelect()
+    {
+        int BallSpawnChance = Random.Range(10, 100);
+
+        
+        if (Score <= 10)
+        {
+
+            difficultyManager.LevelOne();
+        }
+
+        if (Score > 10 && Score <= 20)
+        {
+            difficultyManager.LevelTwo();
+
+        }
+
+        if (Score > 20 && Score <= 100)
+        {
+            if (BallSpawnChance < 50 && Score>=50 && !difficultyManager.isBombSpawned)
+            {
+                difficultyManager.BombBallSpawn();
+            }
+
+            else
+            {
+                difficultyManager.LevelThree();
+            }
+            
+
+        }
+        if(Score == 101)
+        {
+            difficultyManager.LevelFour();
+            difficultyManager.LevelFour();
+            difficultyManager.HeartBall();
+        }
+
+        if (Score > 102 && Score <= 400)
+        {
+            if (BallSpawnChance < 35 && Score >= 50 && !difficultyManager.isBombSpawned)
+            {
+                difficultyManager.BombBallSpawn();
+            }
+
+            else
+            {
+                difficultyManager.LevelFour();
+            }
+
+
+        }
+
+
+
 
 
     }
 
-   
+    private void TwoXBallSpawn()
+    {
+        if (Score.Equals(TwoXBallSpawnDelay))
+        {
+            difficultyManager.TwoXBall();
+            TwoXBallSpawnDelay += 80;
+        }
+    }
+
+
+
+
 
 
 

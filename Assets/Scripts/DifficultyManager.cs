@@ -16,6 +16,8 @@ public class DifficultyManager : MonoBehaviour
     [HideInInspector]
     public bool isBombSpawned = false;
     public int BombDelayTime;
+    public bool is2BallSpawned = false;  
+    public bool is3BallSpawned = false;
 
 
     public void BombBallSpawn()
@@ -161,7 +163,7 @@ public class DifficultyManager : MonoBehaviour
     public void LevelFour()
     {
             int Score = gameManager.score;
-             if (Score > 140) 
+             if (Score > 140 && Score <400) 
              {
               BallForce += 0.4f;
               BallForce = Mathf.Clamp(BallForce, 10f, 30f);
@@ -195,6 +197,46 @@ public class DifficultyManager : MonoBehaviour
 
                 }
             }
+
+    }
+
+    public void LevelFive()
+    {
+        int Score = gameManager.score;
+        if (Score > 400 && Score < 800)
+        {
+            BallForce += 0.6f;
+            BallForce = Mathf.Clamp(BallForce, 10f, 40f);
+
+        }
+
+        CurrectScaleOfBall = CurrectScaleOfBall - 0.01f;
+        CurrectScaleOfBall = Mathf.Max(CurrectScaleOfBall, 0.7f);
+        SpawnedBall = gameManager.SpawnBall();
+        SpawnedBall.transform.localScale = Vector3.one * CurrectScaleOfBall;
+        Ballrb = SpawnedBall.GetComponent<Rigidbody2D>();
+        Ballrb.mass = 3.2f;
+        Ballrb.linearDamping = 0.6f;
+        if (gameManager.isBonusScoreActive)
+        {
+            Ballrb.bodyType = RigidbodyType2D.Kinematic;
+        }
+
+        else
+        {
+
+            int randomnumber = UnityEngine.Random.Range(-2, 1);
+            //Debug.Log(randomnumber);
+            if (randomnumber <= 0)
+            {
+                Ballrb.AddForce(new Vector2(-BallForce, 0), ForceMode2D.Impulse);
+            }
+            else if (randomnumber > 0)
+            {
+                Ballrb.AddForce(new Vector2(BallForce, 0), ForceMode2D.Impulse);
+
+            }
+        }
 
     }
     #endregion

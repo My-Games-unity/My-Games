@@ -41,7 +41,6 @@ public class Ball : MonoBehaviour
 
 
         LevelSelect();
-        TwoXBallSpawn();
         gameManager.CoinReward();
         Destroy(gameObject);
 
@@ -51,19 +50,19 @@ public class Ball : MonoBehaviour
     {
         if (Score <= 10)
         {
-            difficultyManager.LevelOne();
+            difficultyManager.LevelOne();  //spawn ball
         }
 
         else if (Score > 10 && Score <= 20)
         {
-            difficultyManager.LevelTwo();
+            difficultyManager.LevelTwo(); // adding swing
         }
 
         else if (Score > 20 && Score <= 100)
         {
-            difficultyManager.LevelThree();
+            difficultyManager.LevelThree(); //Ball Speed incrase
         }
-        else if (Score > 100 && !difficultyManager.is2BallSpawned)
+        else if (Score > 100 && !difficultyManager.is2BallSpawned) //spawn 2 ball
         {
             difficultyManager.LevelFour();
             difficultyManager.LevelFour();
@@ -73,10 +72,10 @@ public class Ball : MonoBehaviour
 
         else if (Score > 100 && Score <= 300 && difficultyManager.is2BallSpawned)
         {
-            difficultyManager.LevelFour();
+            difficultyManager.LevelFour(); //continuing 2 ball
         }
 
-        else if (Score > 300 && !difficultyManager.is3BallSpawned)
+        else if (Score > 300 && !difficultyManager.is3BallSpawned) // spawn 3 ball
         {
             difficultyManager.LevelFive();
             difficultyManager.LevelFive();
@@ -86,10 +85,45 @@ public class Ball : MonoBehaviour
         }
 
 
-        else if (Score > 300 && Score <= 800 && difficultyManager.is3BallSpawned)
+        else if (Score > 300 && Score < 450 && difficultyManager.is3BallSpawned)
         {
-            difficultyManager.LevelFive();
+            difficultyManager.LevelFive();// continuing 3 ball
         }
+
+        else if (Score >= 450 && Score <= 550) // Ball speed increase
+        {
+            difficultyManager.LevelSix();
+        }
+
+        else if (Score > 550 && !difficultyManager.is4BallSpawned) // 4 ball spawn
+        {
+            difficultyManager.LevelSeven();
+            difficultyManager.LevelSeven();
+            difficultyManager.LevelSeven();
+            difficultyManager.HeartBall();
+            difficultyManager.HeartBall();
+            difficultyManager.is4BallSpawned = true;
+        }
+
+        else if (Score > 550 && Score < 700 && difficultyManager.is4BallSpawned)
+        {
+            difficultyManager.LevelSeven(); // continuing 4 ball
+        }
+
+        else if (Score > 700 && Score < 1000)
+        {
+            difficultyManager.LevelEight(); // Ball speed increase
+        }
+
+
+
+
+
+
+
+
+
+
 
     }
 

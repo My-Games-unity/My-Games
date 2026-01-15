@@ -97,16 +97,22 @@ public class GameManager : MonoBehaviour
             coinCount = 2;
         }
 
-        if (score > 101 && score < 400)
+        if (score > 101 && score < 300)
         {
             coinCount = 2;
         }
 
-        else if(score>400 && score <800)
+        else if(score>300 && score <550)
         {
             coinCount = 3;
         }
-            
+
+        else if (score > 550 && score < 1000)
+        {
+            coinCount = 4;
+        }
+
+       
 
         StartCoroutine(SpawnCoinsOneByOne(coinCount));
         
